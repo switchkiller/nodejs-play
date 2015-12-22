@@ -41,6 +41,19 @@ function serveStatic(response, cache, absPath){
         else{
           send404(response);
         }
-      });  
+      });
   }
 }
+// Now lets create a server.
+var server = http.createServer(function(request, response){
+  var filePath = false;
+
+  if (request.url == '/'){
+    filePath = 'public/index.html';
+  }
+  else{
+    filePath = 'public' +request.url;
+  }
+  var absPath = './' + filePath;
+  serveStatic(response, cache, absPath);
+});
